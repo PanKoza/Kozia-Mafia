@@ -23,8 +23,30 @@ const {
 
 if (!process.env.ADMIN_PASSWORD) console.warn('⚠️  Brak ADMIN_PASSWORD – domyślne hasło hosta to "admin".');
 
-const origins = CLIENT_URL.split(',').map((s) => s.trim()).filter(Boolean);
-const corsOrigin = origins.includes('*') ? true : origins;
+/* CORS: CLIENT_URL = comma-separated origins. Tolerates trailing slashes, paths, spaces, quotes, case,
+ * and supports wildcards like https://*.vercel.app (handy for Vercel preview deployments). */
+const normOrigin = (s) => {
+  const v = String(s || '').trim().replace(/^['"]|['"]$/g, '').toLowerCase();
+  if (v === '*' || v.includes('*')) return v.replace(/\/+$/, '');
+  try {
+    return new URL(v).origin;
+  } catch {
+    return v.replace(/\/+$/, '');
+  }
+};
+const origins = CLIENT_URL.split(',').map(normOrigin).filter(Boolean);
+const wildcard = (pattern) => new RegExp('^' + pattern.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '[^/]+') + '$');
+const matchers = origins.filter((o) => o !== '*').map((o) => (o.includes('*') ? wildcard(o) : o));
+const corsOrigin = origins.includes('*')
+  ? true
+  : (origin, cb) => {
+      if (!origin) return cb(null, true); // curl, same-origin, health checks
+      const o = normOrigin(origin);
+      const ok = matchers.some((m) => (typeof m === 'string' ? m === o : m.test(o)));
+      if (!ok) console.warn(`🚫 CORS: odrzucono ${origin}. Dozwolone (CLIENT_URL): ${origins.join(', ')}`);
+      cb(null, ok);
+    };
+console.log(`🌐 CORS – dozwolone adresy: ${origins.join(', ') || '(brak)'}`);
 
 const app = express();
 app.use(cors({ origin: corsOrigin }));
