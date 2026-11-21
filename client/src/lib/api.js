@@ -1,7 +1,8 @@
-import { SERVER_URL } from './config.js';
+import { SERVER_URL, SERVER_URL_MISSING } from './config.js';
 import { adminAuth } from './storage.js';
 
 export async function api(path, { method = 'GET', body, admin = false } = {}) {
+  if (SERVER_URL_MISSING) throw new Error('Aplikacja nie zna adresu serwera (brak VITE_SERVER_URL na Vercelu). Daj znać hostowi.');
   const headers = { 'Content-Type': 'application/json' };
   if (admin) headers.Authorization = `Bearer ${adminAuth.get()}`;
   let res;
