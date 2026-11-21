@@ -18,14 +18,14 @@ npm run dev                 # http://localhost:4000
 
 # 2. Frontend
 cd client
-cp .env.example .env        # VITE_SERVER_URL=http://localhost:4000
+cp .env.example .env        # SERVER_URL=http://localhost:4000
 npm install
 npm run dev                 # http://localhost:5173 (też w sieci LAN – patrz adres „Network”)
 ```
 
 Panel hosta: `/admin`. Test silnika gry: `cd server && npm test`.
 
-Żeby przetestować na telefonach w tej samej sieci Wi‑Fi, ustaw w `client/.env` adres IP komputera, np. `VITE_SERVER_URL=http://192.168.1.20:4000`. Wibracje i powiadomienia działają w pełni dopiero na HTTPS (czyli po wdrożeniu).
+Żeby przetestować na telefonach w tej samej sieci Wi‑Fi, ustaw w `client/.env` adres IP komputera, np. `SERVER_URL=http://192.168.1.20:4000`. Wibracje i powiadomienia działają w pełni dopiero na HTTPS (czyli po wdrożeniu).
 
 ## Wdrożenie
 
@@ -53,7 +53,7 @@ Zmienne środowiskowe:
 > Darmowy plan Render usypia serwer po 15 min bezczynności (pierwsze połączenie trwa do ~1 min). Na czas wyjazdu warto przejść na płatny plan Starter albo otworzyć grę chwilę przed startem.
 
 ### 4. Frontend → Vercel
-New Project → repozytorium → `Root Directory: client`, framework Vite. Zmienna: `VITE_SERVER_URL=https://<twoj-serwis>.onrender.com`. `vercel.json` obsługuje routing SPA i service workera.
+New Project → repozytorium → `Root Directory: client`, framework Vite. Zmienna: `SERVER_URL=https://<twoj-serwis>.onrender.com` (po zmianie zrób Redeploy – adres jest wpisywany w build). `vercel.json` obsługuje routing SPA i service workera.
 
 ## Jak grać
 
