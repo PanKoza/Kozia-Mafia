@@ -1,0 +1,25 @@
+{
+  "name": "kozia-mafia-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js",
+    "vapid": "web-push generate-vapid-keys",
+    "test": "node src/game/selftest.js && node src/game/pokertest.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.8.1",
+    "socket.io": "^4.8.1",
+    "web-push": "^3.6.7"
+  }
+}

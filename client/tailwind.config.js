@@ -1,0 +1,53 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./index.html', './src/**/*.{js,jsx}'],
+  theme: {
+    extend: {
+      colors: {
+        blood: { DEFAULT: '#B3121B', dark: '#6E0A10', light: '#E0333C' },
+        ink: { DEFAULT: '#0E0D0C', soft: '#171513', line: '#2A2622', raised: '#1F1C19' },
+        cream: { DEFAULT: '#F4EAD5', dim: '#C9BEA6', paper: '#EDE1C6' },
+        gold: { DEFAULT: '#E8B53A', dark: '#A8801F' },
+        felt: { DEFAULT: '#174D33', dark: '#0B2A1C' },
+        cigar: '#5A3A22',
+        ember: '#F28C28',
+        night: '#090A12',
+      },
+      fontFamily: {
+        display: ['"Abril Fatface"', 'Georgia', 'serif'],
+        cond: ['Oswald', 'Impact', 'sans-serif'],
+        body: ['"Libre Franklin"', 'system-ui', 'sans-serif'],
+        mono: ['"Courier Prime"', 'ui-monospace', 'monospace'],
+        stamp: ['"Special Elite"', '"Courier Prime"', 'monospace'],
+      },
+      letterSpacing: { ultra: '0.32em' },
+      keyframes: {
+        rise: { '0%': { opacity: 0, transform: 'translateY(18px)' }, '100%': { opacity: 1, transform: 'none' } },
+        pop: { '0%': { opacity: 0, transform: 'scale(.7)' }, '70%': { transform: 'scale(1.04)' }, '100%': { opacity: 1, transform: 'scale(1)' } },
+        swing: { '0%,100%': { transform: 'rotate(-6deg)' }, '50%': { transform: 'rotate(-1deg)' } },
+        flicker: { '0%,100%': { opacity: 1 }, '45%': { opacity: 0.85 }, '50%': { opacity: 0.4 }, '55%': { opacity: 0.9 } },
+        shake: { '0%,100%': { transform: 'translateX(0)' }, '20%,60%': { transform: 'translateX(-6px)' }, '40%,80%': { transform: 'translateX(6px)' } },
+        stamp: { '0%': { opacity: 0, transform: 'scale(2.6) rotate(-14deg)' }, '60%': { opacity: 1, transform: 'scale(.94) rotate(-7deg)' }, '100%': { transform: 'scale(1) rotate(-7deg)' } },
+        marquee: { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } },
+        blink: { '0%,100%': { opacity: 1 }, '50%': { opacity: 0 } },
+        sweep: { '0%': { transform: 'translateX(-120%) skewX(-20deg)' }, '100%': { transform: 'translateX(220%) skewX(-20deg)' } },
+        floatup: { '0%': { opacity: 1, transform: 'translateY(0) scale(1)' }, '100%': { opacity: 0, transform: 'translateY(-46px) scale(1.4)' } },
+        pulsering: { '0%': { boxShadow: '0 0 0 0 rgba(232,181,58,.55)' }, '100%': { boxShadow: '0 0 0 14px rgba(232,181,58,0)' } },
+      },
+      animation: {
+        rise: 'rise .55s cubic-bezier(.2,.8,.2,1) both',
+        pop: 'pop .45s cubic-bezier(.2,.8,.2,1) both',
+        swing: 'swing 3.2s ease-in-out infinite',
+        flicker: 'flicker 3s linear infinite',
+        shake: 'shake .4s ease-in-out',
+        stamp: 'stamp .55s cubic-bezier(.2,.8,.2,1) both',
+        marquee: 'marquee 28s linear infinite',
+        blink: 'blink 1s steps(1) infinite',
+        sweep: 'sweep 2.8s ease-in-out infinite',
+        pulsering: 'pulsering 1.4s ease-out infinite',
+        floatup: 'floatup .6s ease-out forwards',
+      },
+    },
+  },
+  plugins: [],
+};

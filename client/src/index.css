@@ -1,0 +1,196 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --paper-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .27 0 0 0 0 .15 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+}
+
+html,
+body {
+  background: #0e0d0c;
+  color: #f4ead5;
+  font-family: 'Libre Franklin', system-ui, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+  -webkit-font-smoothing: antialiased;
+}
+body {
+  min-height: 100dvh;
+}
+#root {
+  min-height: 100dvh;
+}
+::selection {
+  background: #b3121b;
+  color: #f4ead5;
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@layer components {
+  /* Dark room: single warm key light from above, heavy vignette */
+  .room {
+    background:
+      radial-gradient(90% 55% at 50% -8%, rgba(232, 181, 58, 0.13), transparent 60%),
+      radial-gradient(120% 70% at 50% 115%, rgba(179, 18, 27, 0.22), transparent 55%),
+      #0e0d0c;
+  }
+  .room-night {
+    background:
+      radial-gradient(80% 50% at 50% -10%, rgba(120, 130, 200, 0.12), transparent 60%),
+      #090a12;
+  }
+
+  /* Paper – case file sheet */
+  .paper {
+    background-color: #ede1c6;
+    background-image: var(--paper-grain), linear-gradient(180deg, #f4ead5, #e8dabb);
+    color: #0e0d0c;
+  }
+  .paper-ruled {
+    background-image:
+      repeating-linear-gradient(180deg, transparent 0 27px, rgba(14, 13, 12, 0.09) 27px 28px),
+      var(--paper-grain),
+      linear-gradient(180deg, #f4ead5, #e8dabb);
+  }
+
+  /* Poster red with double cream frame (from the logo) */
+  .poster {
+    background: #b3121b;
+    position: relative;
+  }
+  .poster::before,
+  .poster::after {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+  }
+  .poster::before {
+    inset: 12px;
+    border: 3px solid #f4ead5;
+  }
+  .poster::after {
+    inset: 20px;
+    border: 1px solid #f4ead5;
+  }
+
+  /* Hairline double-rule frame for dark panels */
+  .frame {
+    position: relative;
+    border: 1px solid rgba(244, 234, 213, 0.16);
+  }
+  .frame::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 1px solid rgba(244, 234, 213, 0.06);
+    pointer-events: none;
+  }
+
+  /* Rubber stamp */
+  .stamp {
+    font-family: 'Special Elite', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    border: 3px solid currentColor;
+    padding: 0.15em 0.6em;
+    transform: rotate(-7deg);
+    display: inline-block;
+    mask-image: var(--paper-grain), linear-gradient(#000, #000);
+    -webkit-mask-composite: source-over;
+    opacity: 0.92;
+  }
+
+  /* Redaction bar */
+  .redact {
+    background: #0e0d0c;
+    color: transparent;
+    border-radius: 1px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  /* Ticket with perforated edges */
+  .ticket {
+    --r: 7px;
+    mask:
+      radial-gradient(var(--r) at 0 50%, #0000 98%, #000) 0 0 / 51% 100% no-repeat,
+      radial-gradient(var(--r) at 100% 50%, #0000 98%, #000) 100% 0 / 51% 100% no-repeat;
+  }
+
+  /* Index tab label */
+  .kicker {
+    font-family: Oswald, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.32em;
+    font-size: 0.68rem;
+  }
+
+  .halftone {
+    background-image: radial-gradient(rgba(244, 234, 213, 0.13) 1px, transparent 1.4px);
+    background-size: 6px 6px;
+  }
+
+  .felt {
+    background:
+      radial-gradient(ellipse at 50% 35%, rgba(255, 255, 255, 0.08), transparent 60%),
+      var(--paper-grain),
+      #174d33;
+  }
+
+  .playing-card {
+    background-image: var(--paper-grain), linear-gradient(160deg, #fffaf0, #efe3c8);
+    color: #0e0d0c;
+    border: 1.5px solid #0e0d0c;
+    box-shadow: 0 3px 0 #0e0d0c;
+  }
+
+  .safe-bottom {
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+  }
+  .safe-top {
+    padding-top: max(0.5rem, env(safe-area-inset-top));
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+}
+
+/* Goat mark micro-animations */
+.km-blink {
+  animation: km-blink 5s infinite;
+  transform-origin: 200px 212px;
+}
+@keyframes km-blink {
+  0%, 46%, 50%, 100% { transform: scaleY(1); }
+  48% { transform: scaleY(0.1); }
+}
+.km-smoke {
+  animation: km-smoke 3s ease-in-out infinite;
+}
+@keyframes km-smoke {
+  0%, 100% { opacity: 0.4; transform: translateY(4px); }
+  50% { opacity: 1; transform: translateY(-6px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
