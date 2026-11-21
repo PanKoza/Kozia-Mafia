@@ -11,7 +11,7 @@ import * as M from './game/minigames.js';
 import { GameError } from './game/util.js';
 import { adminView, gameSummary, playerView } from './game/views.js';
 import { initPush, publicKey, pushToPlayer } from './push.js';
-import { deleteGame, games, initStore, saveGame } from './store.js';
+import { dbStatus, deleteGame, games, initStore, saveGame } from './store.js';
 
 const {
   PORT = 4000,
@@ -105,7 +105,7 @@ async function commit(g) {
 /* REST API                                                            */
 /* ------------------------------------------------------------------ */
 
-app.get('/api/health', (_req, res) => res.json({ ok: true, games: games.size }));
+app.get('/api/health', (_req, res) => res.json({ ok: true, games: games.size, db: dbStatus() }));
 
 app.get('/api/push/key', (_req, res) => res.json({ publicKey }));
 
@@ -279,5 +279,5 @@ io.on('connection', (socket) => {
 /* ------------------------------------------------------------------ */
 
 initPush(process.env);
-await initStore(MONGODB_URI);
 server.listen(PORT, () => console.log(`🐐 Kozia Mafia server na porcie ${PORT}`));
+initStore(MONGODB_URI); // never throws – retries in the background
